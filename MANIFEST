@@ -1,9 +1,11 @@
+Changes
 MANIFEST
 MANIFEST.SKIP
 META.yml
 Makefile.PL
 Partition.pm
 README
+TODO
 eg/ipart
 t/00-basic.t
 t/01-method.t

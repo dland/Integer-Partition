@@ -1,0 +1,11 @@
+use strict;
+use warnings;
+
+use lib 'blib/lib';
+use Integer::Partition;
+
+my $i = Integer::Partition->new(shift || 4);
+
+while (my $p = $i->next) {
+	print "@$p\n";
+}

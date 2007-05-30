@@ -1,0 +1,13 @@
+--- #YAML:1.0
+name:                Integer-Partition
+version:             0.01
+abstract:            Generate all integer partitions of an integer
+license:             perl
+generated_by:        ExtUtils::MakeMaker version 6.32
+distribution_type:   module
+requires:     
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.2.html
+    version: 1.2
+author:
+    - David Landgren

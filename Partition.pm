@@ -7,7 +7,7 @@ package Integer::Partition;
 use strict;
 
 use vars qw/$VERSION/;
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 =head1 NAME
 
@@ -15,7 +15,7 @@ Integer::Partition - Generate all integer partitions of an integer
 
 =head1 VERSION
 
-This document describes version 0.01 of Integer::Partition,
+This document describes version 0.02 of Integer::Partition,
 released 2007-xx-xx.
 
 =head1 SYNOPSIS
@@ -130,7 +130,9 @@ None.
 
 =head1 NOTES
 
-None.
+This module implements the Zoghbi and Stojmenovic ZS1 algorithm for
+generating integer partitions. See
+L<http://www.site.uottawa.ca/~ivan/F49-int-part.pdf> for more information.
 
 =head1 SEE ALSO
 
@@ -138,8 +140,7 @@ None.
 
 =item *
 
-Permutations, combinations, derangements and more; all you need
-for your set transformations.
+L<http://en.wikipedia.org/wiki/Integer_partition>
 
 =back
 

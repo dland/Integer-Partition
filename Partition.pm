@@ -53,6 +53,18 @@ parameter.
 sub new {
     my $class = shift;
     my $n     = shift;
+    if (!defined $n) {
+        require Carp;
+        Carp::croak("missing or undefined input");
+    }
+    elsif ($n < 1) {
+        require Carp;
+        Carp::croak("$n is not a positive integer");
+    }
+    elsif ($n != int($n) {
+        require Carp;
+        Carp::croak("$n is not an integer");
+    }
 
     my @x;
     if (defined $n) {
@@ -115,10 +127,10 @@ sub reset {
     my $self  = shift;
     my @x = (1) x $self->{n};
     $x[0] = $self->{n};
-	$self->{x} = \@x;
-	$self->{m} = 0;
-	$self->{h} = 0;
-	$self->{once} = 0;
+    $self->{x} = \@x;
+    $self->{m} = 0;
+    $self->{h} = 0;
+    $self->{once} = 0;
     return $self;
 }
 
@@ -126,13 +138,32 @@ sub reset {
 
 =head1 DIAGNOSTICS
 
-None.
+=head2 missing or undefined input
+
+The C<new()> method was called without an input parameter, which
+should be a positive integer.
+
+=head2 C<n> is not a positive integer
+
+The C<new()> method was called with zero or a negative integer.
+
+=head2 C<n> is not an integer
+
+The C<new()> method was called with a number containing a decimal
+component. Use C<int> or C<sprintf '%d'> on the input if necessary.
 
 =head1 NOTES
 
-This module implements the Zoghbi and Stojmenovic ZS1 algorithm for
+This module implements the Zoghbi and Stojmenovic ZS1 algorithms for
 generating integer partitions. See
-L<http://www.site.uottawa.ca/~ivan/F49-int-part.pdf> for more information.
+L<http://www.site.uottawa.ca/~ivan/F49-int-part.pdf> for more
+information.  These algorithms have been proven to have constant
+average delay, that is, the amount of effort it takes to produce
+the next result in the series.
+
+They are the fastest known algorithms known for generating integer
+partitions (with the ZS1 reverse lexigraphic order algorithm being
+slightly faster than the ZS2 lexigraphic order algorithm).
 
 =head1 SEE ALSO
 
@@ -151,12 +182,14 @@ L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Set-Partition|rt.cpan.org>
 
 Make sure you include the output from the following two commands:
 
-  perl -MSet::Partition -le 'print $Integer::Partition::VERSION'
+  perl -MInteger::Partition -le 'print $Integer::Partition::VERSION'
   perl -V
 
 =head1 ACKNOWLEDGEMENTS
 
-TODO
+Thanks to Antoine Zoghbi and Ivan Stojmenovic, for sharing their
+discovery with the world on the internet, and not hiding it in
+behind some sort of pay-wall.
 
 =head1 AUTHOR
 

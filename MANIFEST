@@ -9,3 +9,4 @@ TODO
 eg/ipart
 t/00-basic.t
 t/01-method.t
+t/02-exception.t

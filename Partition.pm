@@ -190,6 +190,7 @@ sub reset {
     my @x = (1) x $self->{n};
     $x[0] = $self->{n};
     $self->{x} = \@x;
+	# TODO: forward
     $self->{m} = 0;
     $self->{h} = 0;
     $self->{count} = 0;
@@ -216,10 +217,10 @@ component. Use C<int> or C<sprintf '%d'> on the input if necessary.
 
 =head1 NOTES
 
-This module implements the Zoghbi and Stojmenovic ZS1 algorithms for
-generating integer partitions. See
+This module implements the Zoghbi and Stojmenovic ZS1 and ZS2
+algorithms for generating integer partitions. See
 L<http://www.site.uottawa.ca/~ivan/F49-int-part.pdf> for more
-information.  These algorithms have been proven to have constant
+information. These algorithms have been proven to have constant
 average delay, that is, the amount of effort it takes to produce
 the next result in the series.
 
@@ -234,6 +235,14 @@ slightly faster than the ZS2 lexicographic order algorithm).
 =item *
 
 L<http://en.wikipedia.org/wiki/Integer_partition>
+
+The Wikipedia entry on integer partitions
+
+=item *
+
+L<http://www.site.uottawa.ca/~ivan/F49-int-part.pdf> 
+
+The original 1998 paper written by Zoghbi and Stojmenovic.
 
 =back
 

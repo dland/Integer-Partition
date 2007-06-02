@@ -127,7 +127,7 @@ sub next {
             return [@{$self->{x}}[1..$self->{n}-1]];
         }
         else {
-            return if $self->{x}[1] -= $self->{n};
+            return if $self->{x}[1] == $self->{n};
 
             if ($self->{m} - $self->{h} > 1) {
                 ++$self->{h};

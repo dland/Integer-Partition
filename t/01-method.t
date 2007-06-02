@@ -7,7 +7,7 @@
 
 use strict;
 
-eval qq{use Test::More tests => 36};
+eval qq{use Test::More tests => 47};
 if( $@ ) {
     warn "# Test::More not available, no tests performed\n";
     print "1..1\nok 1\n";
@@ -85,6 +85,21 @@ $_ = $Unchanged;
     is_deeply( $s->next, [1, 1, 1, 1, 1, 1], 'p(6) 11' );
 	$s->reset;
     is_deeply( $s->next, [6               ], 'p(6)  1 reset' );
+}
+
+{
+    my $s = Integer::Partition->new(6, {lexicographic => 1});
+    is_deeply( $s->next, [1, 1, 1, 1, 1, 1], 'f(6)  1' );
+    is_deeply( $s->next, [2, 1, 1, 1, 1   ], 'f(6)  2' );
+    is_deeply( $s->next, [2, 2, 1, 1      ], 'f(6)  3' );
+    is_deeply( $s->next, [2, 2, 2         ], 'f(6)  4' );
+    is_deeply( $s->next, [3, 1, 1, 1      ], 'f(6)  5' );
+    is_deeply( $s->next, [3, 2, 1         ], 'f(6)  6' );
+    is_deeply( $s->next, [3, 3            ], 'f(6)  7' );
+    is_deeply( $s->next, [4, 1, 1         ], 'f(6)  8' );
+    is_deeply( $s->next, [4, 2            ], 'f(6)  9' );
+    is_deeply( $s->next, [5, 1            ], 'f(6) 10' );
+    is_deeply( $s->next, [6               ], 'f(6) 11' );
 }
 
 cmp_ok( $_, 'eq', $Unchanged, '$_ has not been altered' );

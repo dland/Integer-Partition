@@ -7,7 +7,7 @@
 
 use strict;
 
-eval qq{use Test::More tests => 47};
+eval qq{use Test::More tests => 415};
 if( $@ ) {
     warn "# Test::More not available, no tests performed\n";
     print "1..1\nok 1\n";
@@ -26,81 +26,180 @@ $_ = $Unchanged;
     $p = $s->next;
     ok( !defined($p), '...exhausted');
 
-	$s->reset;
+    $s->reset;
     $p = $s->next;
     is_deeply( $p, [1], 'partition of 1 after reset' );
 }
 
-{
-    my $s = Integer::Partition->new(2);
-    is_deeply( $s->next, [2],    'p(2) 1' );
-    is_deeply( $s->next, [1, 1], 'p(2) 2' );
-}
+local $/ = "\n\n";
 
-{
-    my $s = Integer::Partition->new(3);
-    is_deeply( $s->next, [3],       'p(3) 1' );
-    is_deeply( $s->next, [2, 1],    'p(3) 2' );
-    is_deeply( $s->next, [1, 1, 1], 'p(3) 3' );
-	$s->reset;
-    is_deeply( $s->next, [3],       'p(3) 1 reset' );
-}
+while (defined(my $set = <DATA>)) {
+    chomp;
+    my @array = map {[split]} split /\n/, $set;
+    my $lim = @array;
+    my $n = $array[0]->[0];
+    my $zs1 = Integer::Partition->new($n);
+    my $zs2 = Integer::Partition->new($n, {lexicographic => 1});
 
-{
-    my $s = Integer::Partition->new(4);
-    is_deeply( $s->next, [4],          'p(4) 1' );
-    is_deeply( $s->next, [3, 1],       'p(4) 2' );
-    is_deeply( $s->next, [2, 2],       'p(4) 3' );
-    is_deeply( $s->next, [2, 1, 1],    'p(4) 4' );
-    is_deeply( $s->next, [1, 1, 1, 1], 'p(4) 5' );
-	$s->reset;
-    is_deeply( $s->next, [4],          'p(4) 1 reset' );
-}
-
-{
-    my $s = Integer::Partition->new(5);
-    is_deeply( $s->next, [5            ], 'p(5) 1' );
-    is_deeply( $s->next, [4, 1         ], 'p(5) 2' );
-    is_deeply( $s->next, [3, 2         ], 'p(5) 3' );
-    is_deeply( $s->next, [3, 1, 1      ], 'p(5) 4' );
-    is_deeply( $s->next, [2, 2, 1      ], 'p(5) 5' );
-    is_deeply( $s->next, [2, 1, 1, 1   ], 'p(5) 6' );
-    is_deeply( $s->next, [1, 1, 1, 1, 1], 'p(5) 7' );
-	$s->reset;
-    is_deeply( $s->next, [5            ], 'p(5) 1 reset' );
-}
-
-{
-    my $s = Integer::Partition->new(6);
-    is_deeply( $s->next, [6               ], 'p(6)  1' );
-    is_deeply( $s->next, [5, 1            ], 'p(6)  2' );
-    is_deeply( $s->next, [4, 2            ], 'p(6)  3' );
-    is_deeply( $s->next, [4, 1, 1         ], 'p(6)  4' );
-    is_deeply( $s->next, [3, 3            ], 'p(6)  5' );
-    is_deeply( $s->next, [3, 2, 1         ], 'p(6)  6' );
-    is_deeply( $s->next, [3, 1, 1, 1      ], 'p(6)  7' );
-    is_deeply( $s->next, [2, 2, 2         ], 'p(6)  8' );
-    is_deeply( $s->next, [2, 2, 1, 1      ], 'p(6)  9' );
-    is_deeply( $s->next, [2, 1, 1, 1, 1   ], 'p(6) 10' );
-    is_deeply( $s->next, [1, 1, 1, 1, 1, 1], 'p(6) 11' );
-	$s->reset;
-    is_deeply( $s->next, [6               ], 'p(6)  1 reset' );
-}
-
-{
-    my $s = Integer::Partition->new(6, {lexicographic => 1});
-    is_deeply( $s->next, [1, 1, 1, 1, 1, 1], 'f(6)  1' );
-    is_deeply( $s->next, [2, 1, 1, 1, 1   ], 'f(6)  2' );
-    is_deeply( $s->next, [2, 2, 1, 1      ], 'f(6)  3' );
-    is_deeply( $s->next, [2, 2, 2         ], 'f(6)  4' );
-    is_deeply( $s->next, [3, 1, 1, 1      ], 'f(6)  5' );
-    is_deeply( $s->next, [3, 2, 1         ], 'f(6)  6' );
-    is_deeply( $s->next, [3, 3            ], 'f(6)  7' );
-    is_deeply( $s->next, [4, 1, 1         ], 'f(6)  8' );
-    is_deeply( $s->next, [4, 2            ], 'f(6)  9' );
-    is_deeply( $s->next, [5, 1            ], 'f(6) 10' );
-    is_deeply( $s->next, [6               ], 'f(6) 11' );
+    for (my $idx = 0; $idx < $lim; ++$idx) {
+        my $sum = 0;
+        $sum += $_ for @{$array[$idx]};
+        is($sum, $n, "sum $idx of $n");
+        my $p = $zs1->next;
+        is_deeply($p, $array[$idx], "zs1($n:$idx) @{$array[$idx]}");
+        $p = $zs2->next;
+        is_deeply($p,
+            $array[$lim-($idx+1)],
+            "zs2($n:$idx) @{$array[$lim-($idx+1)]}"
+        );
+    }
 }
 
 cmp_ok( $_, 'eq', $Unchanged, '$_ has not been altered' );
 
+__DATA__
+2
+1 1
+
+3
+2 1
+1 1 1
+
+4
+3 1
+2 2
+2 1 1
+1 1 1 1
+
+5
+4 1
+3 2
+3 1 1
+2 2 1
+2 1 1 1
+1 1 1 1 1
+
+6
+5 1
+4 2
+4 1 1
+3 3
+3 2 1
+3 1 1 1
+2 2 2
+2 2 1 1
+2 1 1 1 1
+1 1 1 1 1 1
+
+7
+6 1
+5 2
+5 1 1
+4 3
+4 2 1
+4 1 1 1
+3 3 1
+3 2 2
+3 2 1 1
+3 1 1 1 1
+2 2 2 1
+2 2 1 1 1
+2 1 1 1 1 1
+1 1 1 1 1 1 1
+
+8
+7 1
+6 2
+6 1 1
+5 3
+5 2 1
+5 1 1 1
+4 4
+4 3 1
+4 2 2
+4 2 1 1
+4 1 1 1 1
+3 3 2
+3 3 1 1
+3 2 2 1
+3 2 1 1 1
+3 1 1 1 1 1
+2 2 2 2
+2 2 2 1 1
+2 2 1 1 1 1
+2 1 1 1 1 1 1
+1 1 1 1 1 1 1 1
+
+9
+8 1
+7 2
+7 1 1
+6 3
+6 2 1
+6 1 1 1
+5 4
+5 3 1
+5 2 2
+5 2 1 1
+5 1 1 1 1
+4 4 1
+4 3 2
+4 3 1 1
+4 2 2 1
+4 2 1 1 1
+4 1 1 1 1 1
+3 3 3
+3 3 2 1
+3 3 1 1 1
+3 2 2 2
+3 2 2 1 1
+3 2 1 1 1 1
+3 1 1 1 1 1 1
+2 2 2 2 1
+2 2 2 1 1 1
+2 2 1 1 1 1 1
+2 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+
+10
+9 1
+8 2
+8 1 1
+7 3
+7 2 1
+7 1 1 1
+6 4
+6 3 1
+6 2 2
+6 2 1 1
+6 1 1 1 1
+5 5
+5 4 1
+5 3 2
+5 3 1 1
+5 2 2 1
+5 2 1 1 1
+5 1 1 1 1 1
+4 4 2
+4 4 1 1
+4 3 3
+4 3 2 1
+4 3 1 1 1
+4 2 2 2
+4 2 2 1 1
+4 2 1 1 1 1
+4 1 1 1 1 1 1
+3 3 3 1
+3 3 2 2
+3 3 2 1 1
+3 3 1 1 1 1
+3 2 2 2 1
+3 2 2 1 1 1
+3 2 1 1 1 1 1
+3 1 1 1 1 1 1 1
+2 2 2 2 2
+2 2 2 2 1 1
+2 2 2 1 1 1 1
+2 2 1 1 1 1 1 1
+2 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1

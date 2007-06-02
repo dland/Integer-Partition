@@ -2,10 +2,23 @@ use strict;
 use warnings;
 
 use lib 'blib/lib';
+
 use Integer::Partition;
+use Getopt::Std;
 
-my $i = Integer::Partition->new(shift || 4);
+getopts('ls', \my %opt);
 
-while (my $p = $i->next) {
-	print "@$p\n";
+print $_, $/ for keys %opt;
+
+my $arg;
+$arg->{lexicographic} = exists $opt{l} ? 1 : 0;
+
+my $count = 0;
+for my $n (@ARGV) {
+    print "\n" if $count++;
+
+    my $i = Integer::Partition->new($n, $arg);
+    while (my $p = $i->next) {
+        print "@$p\n";
+    }
 }

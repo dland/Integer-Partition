@@ -9,9 +9,13 @@ make install
 
 TESTING
 
-This module requires the following modules for thorough testing:
+This module requires the following module for thorough testing:
 
     Test::More
+
+The following test modules are optional:
+
+    Test::Exception
     Test::Pod
     Test::Pod::Coverage
 
@@ -34,7 +38,7 @@ use Integer::Partition;
 my $i = Integer::Partition->new(6);
 
 while (my $p = $i->next) {
-    print join( ' ', map { "(@$_)" } @$p ), $/;
+    print join( ' ', map { "@$_" } @$p ), $/;
 }
 
 # prints:
@@ -53,8 +57,8 @@ while (my $p = $i->next) {
 
 IMPLEMENTATION
 
-This module implements the Zoghbi and Stojmenovic ZS1 algorithm for
-generating integer partitions. See
+This module implements the Zoghbi and Stojmenovic ZS1 and ZS2
+algorithms for generating integer partitions. See
 http://www.site.uottawa.ca/~ivan/F49-int-part.pdf for more information.
 
 STATUS

@@ -6,9 +6,7 @@ use lib 'blib/lib';
 use Integer::Partition;
 use Getopt::Std;
 
-getopts('ls', \my %opt);
-
-print $_, $/ for keys %opt;
+getopts('lm:n:M:N:', \my %opt);
 
 my $arg;
 $arg->{lexicographic} = exists $opt{l} ? 1 : 0;
@@ -19,6 +17,10 @@ for my $n (@ARGV) {
 
     my $i = Integer::Partition->new($n, $arg);
     while (my $p = $i->next) {
+        next if exists $opt{m} and @$p > $opt{m};
+        next if exists $opt{n} and @$p < $opt{n};
+        next if exists $opt{M} and grep {$_ > $opt{M}} @$p;
+        next if exists $opt{N} and grep {$_ < $opt{N}} @$p;
         print "@$p\n";
     }
 }

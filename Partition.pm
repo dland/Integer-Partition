@@ -73,7 +73,7 @@ sub new {
         require Carp;
         Carp::croak("missing or undefined input");
     }
-    elsif ($n < 1) {
+    elsif ($n =~ /\D/ or $n < 1) {
         require Carp;
         Carp::croak("$n is not a positive integer");
     }

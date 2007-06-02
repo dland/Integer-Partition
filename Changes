@@ -1,5 +1,9 @@
 Revision history for Perl extension Integer::Partition
 
+0.02
+    - implemented ZS2 algorithm to allow forward ordering.
+    - better documentation.
+
 0.01  
     - initial version.
 

@@ -22,12 +22,12 @@ $_ = $Unchanged;
 diag( "testing Integer::Partition v$Integer::Partition::VERSION" );
 
 {
-    my $t = Integer::Partition->new;
+    my $t = Integer::Partition->new(1);
     ok( defined($t), 'new() defines ...' );
     ok( ref($t) eq 'Integer::Partition', '... a Integer::Partition object' );
 
     my $r = $t->next;
-    ok( !defined($r), 'cannot arrange nothing' );
+    is( ref($r), 'ARRAY', '... returns an arrayref' );
 }
 
 SKIP: {

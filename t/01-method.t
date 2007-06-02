@@ -7,7 +7,7 @@
 
 use strict;
 
-eval qq{use Test::More tests => 415};
+eval qq{use Test::More tests => 453};
 if( $@ ) {
     warn "# Test::More not available, no tests performed\n";
     print "1..1\nok 1\n";
@@ -29,6 +29,12 @@ $_ = $Unchanged;
     $s->reset;
     $p = $s->next;
     is_deeply( $p, [1], 'partition of 1 after reset' );
+
+    $s = Integer::Partition->new(1, {lexicographic => 1});
+    $p = $s->next;
+    is_deeply( $p, [1], 'partition of 1 ZS2' );
+    $p = $s->next;
+    ok( !defined($p), '...exhausted ZS2');
 }
 
 local $/ = "\n\n";
@@ -40,12 +46,13 @@ while (defined(my $set = <DATA>)) {
     my $n = $array[0]->[0];
     my $zs1 = Integer::Partition->new($n);
     my $zs2 = Integer::Partition->new($n, {lexicographic => 1});
+    my $p;
 
     for (my $idx = 0; $idx < $lim; ++$idx) {
         my $sum = 0;
         $sum += $_ for @{$array[$idx]};
         is($sum, $n, "sum $idx of $n");
-        my $p = $zs1->next;
+        $p = $zs1->next;
         is_deeply($p, $array[$idx], "zs1($n:$idx) @{$array[$idx]}");
         $p = $zs2->next;
         is_deeply($p,
@@ -53,6 +60,20 @@ while (defined(my $set = <DATA>)) {
             "zs2($n:$idx) @{$array[$lim-($idx+1)]}"
         );
     }
+
+    $p = $zs1->next;
+    ok(!defined($p), 'zs1 exhausted');
+
+    $zs1->reset;
+    $p = $zs1->next;
+    is_deeply($p, $array[0], "zs1 reset next");
+
+    $p = $zs2->next;
+    ok(!defined($p), 'zs2 exhausted');
+
+    $zs2->reset;
+    $p = $zs2->next;
+    is_deeply($p, $array[$#array], "zs2 reset next");
 }
 
 cmp_ok( $_, 'eq', $Unchanged, '$_ has not been altered' );

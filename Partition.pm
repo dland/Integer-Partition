@@ -122,13 +122,14 @@ sub next {
         if (++$self->{count} == 1) {
             return [@{$self->{x}}[1..$self->{n}]];
         }
+        elsif ($self->{x}[1] == $self->{n}) {
+            return;
+        }
         elsif ($self->{count} == 2) {
             $self->{x}[1] = 2;
             return [@{$self->{x}}[1..$self->{n}-1]];
         }
         else {
-            return if $self->{x}[1] == $self->{n};
-
             if ($self->{m} - $self->{h} > 1) {
                 ++$self->{h};
                 $self->{x}[$self->{h}] = 2;
@@ -186,13 +187,20 @@ beginning.
 =cut
 
 sub reset {
-    my $self  = shift;
-    my @x = (1) x $self->{n};
-    $x[0] = $self->{n};
+    my $self = shift;
+    my $n    = $self->{n};
+    my @x;
+    if ($self->{forward}) {
+        @x = (1) x ($n+1);
+        $x[0] = -1;
+    }
+    else {
+        @x = (1) x $n;
+        $x[0] = $n;
+    }
     $self->{x} = \@x;
-	# TODO: forward
-    $self->{m} = 0;
-    $self->{h} = 0;
+    $self->{m} = $self->{forward} ? $n - 1 : 0,
+    $self->{h} = $self->{forward} ?      1 : 0,
     $self->{count} = 0;
     return $self;
 }

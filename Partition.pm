@@ -15,8 +15,8 @@ Integer::Partition - Generate all integer partitions of an integer
 
 =head1 VERSION
 
-This document describes version 0.02 of Integer::Partition,
-released 2007-xx-xx.
+This document describes version 0.02 of Integer::Partition, released
+2007-06-02.
 
 =head1 SYNOPSIS
 

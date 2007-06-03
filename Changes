@@ -1,13 +1,14 @@
 Revision history for Perl extension Integer::Partition
 
-0.02
+0.02 2007-06-02 13:10:40 UTC
     - implemented ZS2 algorithm to allow lexicographic (forward)
       ordering.
-    - added eg/zs1 and eg/zs2 programes that offer a
+    - added eg/zs1 and eg/zs2 programs that offer a
       non-object-oriented approach to generating integer
       partitions.
+    - enhanced eg/ipart (command-line switches).
     - improved documentation.
 
-0.01  
+0.01 2007-05-30 21:43:57
     - initial version.
 

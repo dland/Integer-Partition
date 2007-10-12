@@ -7,6 +7,8 @@ Partition.pm
 README
 TODO
 eg/ipart
+eg/zs1
+eg/zs2
 t/00-basic.t
 t/01-method.t
 t/02-exception.t

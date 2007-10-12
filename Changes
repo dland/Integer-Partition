@@ -1,5 +1,9 @@
 Revision history for Perl extension Integer::Partition
 
+0.04
+    - This time, actually add the eg/zs? programs to the MANIFEST
+      instead of just talking about it.
+
 0.03 2007-10-12 14:44:06 UTC
     - The documentation snippet showing how to use the module was
       incorrect, which was confusing. (CPAN bug #29927)

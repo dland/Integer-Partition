@@ -7,7 +7,7 @@ package Integer::Partition;
 use strict;
 
 use vars qw/$VERSION/;
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 =head1 NAME
 
@@ -15,8 +15,8 @@ Integer::Partition - Generate all integer partitions of an integer
 
 =head1 VERSION
 
-This document describes version 0.03 of Integer::Partition, released
-2007-10-12.
+This document describes version 0.04 of Integer::Partition, released
+2007-xx-xx.
 
 =head1 SYNOPSIS
 

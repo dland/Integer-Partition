@@ -1,4 +1,4 @@
-The file is the README for Integer::Partition version 0.02
+The file is the README for Integer::Partition version 0.03
 
 INSTALLATION
 
@@ -38,7 +38,7 @@ use Integer::Partition;
 my $i = Integer::Partition->new(6);
 
 while (my $p = $i->next) {
-    print join( ' ', map { "@$_" } @$p ), $/;
+    print join( ' ', @$p ), $/;
 }
 
 # prints:

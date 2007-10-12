@@ -1,5 +1,9 @@
 Revision history for Perl extension Integer::Partition
 
+0.03 2007-10-12 14:44:06 UTC
+    - The documentation snippet showing how to use the module was
+      incorrect, which was confusing. (CPAN bug #29927)
+
 0.02 2007-06-02 13:10:40 UTC
     - implemented ZS2 algorithm to allow lexicographic (forward)
       ordering.

@@ -7,7 +7,7 @@ package Integer::Partition;
 use strict;
 
 use vars qw/$VERSION/;
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 =head1 NAME
 
@@ -15,8 +15,8 @@ Integer::Partition - Generate all integer partitions of an integer
 
 =head1 VERSION
 
-This document describes version 0.02 of Integer::Partition, released
-2007-06-02.
+This document describes version 0.03 of Integer::Partition, released
+2007-10-12.
 
 =head1 SYNOPSIS
 
@@ -24,7 +24,7 @@ This document describes version 0.02 of Integer::Partition, released
 
   my $i = Integer::Partition->new(4);
   while (my $p = $i->next) {
-    print join( ' ', map { "@$_" } @$p ), $/;
+    print join( ' ', @$p ), $/;
   }
   # produces
   4
@@ -35,7 +35,7 @@ This document describes version 0.02 of Integer::Partition, released
 
   my $j = Integer::Partition->new(5, {lexicographic => 1});
   while (my $p = $j->next) {
-    print join( ' ', map { "@$_" } @$p ), $/;
+    print join( ' ', @$p ), $/;
   }
   # produces
   1 1 1 1 1

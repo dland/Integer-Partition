@@ -131,24 +131,20 @@ sub next {
         }
         else {
             if ($self->{m} - $self->{h} > 1) {
-                ++$self->{h};
-                $self->{x}[$self->{h}] = 2;
+                $self->{x}[++$self->{h}] = 2;
                 --$self->{m};
             }
             else {
                 my $j = $self->{m} - 2;
                 while ($self->{x}[$j] == $self->{x}[$self->{m}-1]) {
-                    $self->{x}[$j] = 1;
-                    --$j;
+                    $self->{x}[$j--] = 1;
                 }
                 $self->{h} = $j + 1;
                 $self->{x}[$self->{h}] = $self->{x}[$self->{m}-1] + 1;
                 my $r = $self->{x}[$self->{m}]
                     + $self->{x}[$self->{m} - 1] * ($self->{m} - $self->{h} - 1);
-                $self->{x}[$self->{m}] = 1;
-                if ($self->{m} - $self->{h} > 1) {
-                    $self->{x}[$self->{m}-1] = 1;
-                }
+                $self->{x}[$self->{m}]   = 1;
+                $self->{x}[$self->{m}-1] = 1 if $self->{m} - $self->{h} > 1;
                 $self->{m} = $self->{h} + $r - 1;
             }
             return [@{$self->{x}}[1..$self->{m}]];

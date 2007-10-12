@@ -6,7 +6,7 @@ use lib 'blib/lib';
 use Integer::Partition;
 use Getopt::Std;
 
-getopts('lm:n:M:N:', \my %opt);
+getopts('dlm:n:M:N:u', \my %opt);
 
 my $arg;
 $arg->{lexicographic} = exists $opt{l} ? 1 : 0;
@@ -16,11 +16,20 @@ for my $n (@ARGV) {
     print "\n" if $count++;
 
     my $i = Integer::Partition->new($n, $arg);
-    while (my $p = $i->next) {
-        next if exists $opt{m} and @$p > $opt{m};
-        next if exists $opt{n} and @$p < $opt{n};
-        next if exists $opt{M} and grep {$_ > $opt{M}} @$p;
-        next if exists $opt{N} and grep {$_ < $opt{N}} @$p;
+    PART: while (my $p = $i->next) {
+        next PART if exists $opt{m} and @$p > $opt{m};
+        next PART if exists $opt{n} and @$p < $opt{n};
+        next PART if exists $opt{M} and grep {$_ > $opt{M}} @$p;
+        next PART if exists $opt{N} and grep {$_ < $opt{N}} @$p;
+        if ($opt{u} or $opt{d}) {
+            my %seen;
+            for my $i (@$p) {
+                ++$seen{$i} > 1 and $opt{u} and next PART;
+            }
+            if ($opt{d}) {
+                grep {$_ > 1} values %seen or next PART;
+            }
+        }
         print "@$p\n";
     }
 }

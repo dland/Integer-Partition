@@ -253,7 +253,7 @@ The original 1998 paper written by Zoghbi and Stojmenovic.
 =head1 BUGS
 
 Please report all bugs at
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Set-Partition|rt.cpan.org>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Integer-Partition|rt.cpan.org>
 
 Make sure you include the output from the following two commands:
 

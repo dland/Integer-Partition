@@ -1,4 +1,4 @@
-The file is the README for Integer::Partition version 0.04
+The file is the README for Integer::Partition version 0.05
 
 INSTALLATION
 
@@ -71,7 +71,7 @@ David Landgren
 
 COPYRIGHT
 
-This module is copyright (C) David Landgren 2007.
+This module is copyright (C) David Landgren 2007-2013.
 All rights reserved.
 
 LICENSE

@@ -1,13 +1,14 @@
 # Integer::Partition.pm
 #
-# Copyright (c) 2007 David Landgren
+# Copyright (c) 2007-2013 David Landgren
 # All rights reserved
 
 package Integer::Partition;
 use strict;
+use warnings;
 
 use vars qw/$VERSION/;
-$VERSION = '0.04';
+$VERSION = '0.05';
 
 =head1 NAME
 
@@ -15,8 +16,8 @@ Integer::Partition - Generate all integer partitions of an integer
 
 =head1 VERSION
 
-This document describes version 0.04 of Integer::Partition, released
-2007-xx-xx.
+This document describes version 0.05 of Integer::Partition, released
+2013-06-23.
 
 =head1 SYNOPSIS
 
@@ -252,6 +253,8 @@ The original 1998 paper written by Zoghbi and Stojmenovic.
 
 =head1 BUGS
 
+None known.
+
 Please report all bugs at
 L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Integer-Partition|rt.cpan.org>
 
@@ -259,6 +262,9 @@ Make sure you include the output from the following two commands:
 
   perl -MInteger::Partition -le 'print $Integer::Partition::VERSION'
   perl -V
+
+Pull requests on Github may be issued at
+L<https://github.com/dland/Integer-Partition>.
 
 =head1 ACKNOWLEDGEMENTS
 
@@ -268,7 +274,7 @@ behind some sort of pay-wall.
 
 =head1 AUTHOR
 
-David Landgren, copyright (C) 2007. All rights reserved.
+David Landgren, copyright (C) 2007-2013. All rights reserved.
 
 http://www.landgren.net/perl/
 

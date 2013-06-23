@@ -1,7 +1,7 @@
 Changes
+LICENSE
 MANIFEST
 MANIFEST.SKIP
-META.yml
 Makefile.PL
 Partition.pm
 README
@@ -12,3 +12,4 @@ eg/zs2
 t/00-basic.t
 t/01-method.t
 t/02-exception.t
+t/03-pod.t

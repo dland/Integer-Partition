@@ -1,2 +1,2 @@
-\B\.svn\b
+\B\.git\b
 Makefile
